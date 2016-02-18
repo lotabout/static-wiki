@@ -1,14 +1,29 @@
 <html>
     <head>
         <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://cdn.bootcss.com/marked/0.3.5/marked.min.js"></script>
         <script src="http://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
     </head>
     <body>
-        <header id="header">
-        </header>
-        <div id="content">
-            <!--for the main content-->
+        <!--use bootstrap's grid system-->
+        <div class="row container">
+            <!--left bar-->
+            <div class="col-xs-12 col-sm-3 col-md-2">
+                <header id="header">
+                    <!--later to be moved to its own file.-->
+                    My Personal Wiki
+                    <input id="search-input" type="text">
+                    <div id="search-result"></div>
+                </header>
+            </div>
+
+            <div class="col-xs-12 col-sm-9 col-md-10">
+                <div id="content" class="">
+                    <!--for the main content-->
+                </div>
+            </div>
         </div>
 
         <div id="log"></div>
