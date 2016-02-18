@@ -1,8 +1,9 @@
 var all_files = []
 var file_contents = {};
+var cached_files = {};
 
 //=============================================================================
-// Routing 
+// Routing
 
 // add simple router, which handles hash URL
 function load_url(url, callback) {
@@ -25,13 +26,38 @@ window.onpopstate = function(e) {
 
 // load markdown file and intercept the link
 function handle_markdown(file) {
-    $.get(file, function(data) {
+    fetch_file(file, function(data) {
         var content = marked(data);
 
         // set the content
         $('#content').html(content);
-        intercept_content_link();
+        //intercept_content_link();
     });
+}
+
+// fetch markdown content, with cache
+function fetch_markdown(filename, callback) {
+    if (file_contents[filename]) {
+        callback(file_contents[filename]);
+    } else {
+        $.get(filename, function(data) {
+            file_contents[filename] = data;
+            callback(data);
+        });
+    }
+}
+
+// fetch markdown content, with cache
+function fetch_file(file, callback) {
+    if (cached_files[file]) {
+        callback(cached_files[file]);
+    } else {
+        fetch_markdown(file, function(content) {
+            var processed = marked(content);
+            cached_files[file] = processed;
+            callback(processed);
+        });
+    }
 }
 
 // initial loading, redirect to #index.md
@@ -78,7 +104,7 @@ $.get('all.txt', function(data) {
 var $input = $('#search-input');
 var $searchResult = $('#search-result');
 $input.on('input', function(e){
-    var ret='<ul class=\"search-result-list\">';                
+    var ret='<ul class=\"search-result-list\">';
     var keywords = this.value.trim().toLowerCase().split(/\s+/);
 
     $searchResult.html('');
@@ -110,14 +136,14 @@ $input.on('input', function(e){
             // show search content
             if (is_match) {
                 ret += '<li>';
-                ret += "<a href='" + file + "' class='search-result-title'>" + file + "</a>";
+                ret += "<a href='#" + file + "' class='search-result-title'>" + file + "</a>";
 
                 // cut 100 characters
                 var start = first_occur - 20;
                 start = start < 0 ? 0 : start;
                 var end = start + 100;
                 end = end > content.length ? content.length : end;
-                var match_content = content.substr(start, end); 
+                var match_content = content.substr(start, end);
 
                 // highlight all keywords
                 $.each(keywords, function(i, key){
