@@ -1,17 +1,21 @@
 // add simple router, which handles hash URL
-function route(url, callback) {
+function load_url(url, callback) {
     var match = url.match(/#(.*)$/);
     fragment = match ? match[1] : url;
-
-    console.log('route', fragment);
 
     history.pushState(null, null, '#' + fragment);
     callback(fragment);
 }
 
-function load_markdown(url) {
-    route(url, handle_markdown);
+function load_markdown(file) {
+    history.pushState(null, null, '#' + file);
+    handle_markdown(file)
 }
+
+window.onpopstate = function(e) {
+    var hash = location.hash.slice(1);
+    handle_markdown(hash);
+};
 
 // load markdown file and intercept the link
 function handle_markdown(file) {
@@ -23,6 +27,13 @@ function handle_markdown(file) {
         intercept_content_link();
     });
 }
+
+// initial loading, redirect to #index.md
+var url = window.location.href;
+if (!url.endsWith('.md')) {
+    url += '#index.md';
+}
+load_url(url, handle_markdown);
 
 function intercept_content_link() {
     // intercept all link clicks
@@ -36,17 +47,6 @@ function intercept_content_link() {
     });
 }
 
-// after load
-var url = window.location.href;
-if (!url.endsWith('.md')) {
-    url += '#index.md';
-}
-load_markdown(url);
-
-window.onpopstate = function(e) {
-    console.log('here');
-    load_markdown(location.hash);
-};
 
 // load all files
 $.get('all.txt', function(data) {
