@@ -137,9 +137,10 @@ function search_and_show(e) {
         if (content === '') {
             is_match = false;
         } else {
+            content = content.toLowerCase();
             for (var i = 0, len = keywords.length; i < len; i++) {
                 var key = keywords[i];
-                var match_title = file.indexOf(key);
+                var match_title = file.toLowerCase().indexOf(key);
                 match_index = content.indexOf(key);
                 if (match_title >= 0 || match_index >= 0) {
                     is_match = true;

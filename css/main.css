@@ -128,6 +128,12 @@ ul.nav li:last-child {
     /*border-color: #333;*/
     /*border-width: 0 1px 1px 1px;*/
 }
+/*======================================================================
+ * Search Result*/
+#search-result em {
+    background: rgba(207, 85, 197, 0.56);
+    font-style: normal;
+}
 
 /*======================================================================
  * Utility class */
