@@ -3,7 +3,8 @@ html {
 }
 
 .row.brand, footer {
-    background: #ccc none repeat scroll 0 0;
+    background: #333;
+    color: #EEE;
 }
 
 .row.brand {
@@ -72,7 +73,7 @@ ul.nav li::after {
     right: -4px;
     top: 1rem;
     width: 8px;
-    background: red;
+    background: #AAA;
 }
 
 ul.nav li:last-child::after {
@@ -92,10 +93,19 @@ ul.nav li:last-child {
 #search-input {
     display: inline-block;
     margin: 0;
+    background: #666;
+    border: none;
+    width: 6em;
+    transition: width .2s ease-in-out;
+}
+
+#search-input:focus{
+    background: #AAA;
+    width: 12em;
 }
 
 .nav-control {
-    background: #ddd;
+    background: #444;
 }
 
 .nav-control .container {
