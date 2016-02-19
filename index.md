@@ -7,6 +7,12 @@
 - [Knowledge](knowledge.md) -- About Knowledge
 - [Another](another.md) -- Another link
 
+```c
+int main() {
+    printf("hello world");
+}
+```
+
 ## Second HEader
 
 - [Knowledge](knowledge.md) -- About Knowledge

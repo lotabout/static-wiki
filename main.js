@@ -11,7 +11,6 @@ function load_url(url, callback) {
     fragment = match ? match[1] : url;
 
     history.pushState(null, null, '#!' + fragment);
-    console.log('filename', fragment);
     callback(fragment);
 }
 
@@ -51,6 +50,9 @@ function generate_toc($content) {
 function handle_html_content(html) {
     // set the content
     $('#content').html(html);
+    $('#content pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+    });
 
     intercept_content_link($('#content a'));
     var toc = generate_toc($('#content'));
