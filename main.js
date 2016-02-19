@@ -24,6 +24,23 @@ window.onpopstate = function(e) {
     handle_markdown(hash);
 };
 
+// generate table of contents automatically, h2 > h3
+function generate_toc($content) {
+    var toc = "<nav class='toc'>" +
+        "<h2>Table Of Contents</h2>" +
+        "<ul>";
+
+    $content.find('h2,h3').each(function(i, e) {
+        var cur = $(this);
+        toc += "<li><a title='" + cur.prop('tagName');
+        toc += "' href='#" + cur.prop('id') + "'>";
+        toc += cur.text();
+        toc += "</a></li>";
+    });
+    toc += '</ul></nav>';
+    return toc;
+}
+
 // load markdown file and intercept the link
 function handle_markdown(file) {
     fetch_file(file, function(data) {
@@ -31,7 +48,10 @@ function handle_markdown(file) {
 
         // set the content
         $('#content').html(content);
+
         //intercept_content_link($('content a'));
+        var toc = generate_toc($('#content'));
+        $('#toc').html(toc);
     });
 }
 

@@ -12,6 +12,16 @@ html {
     padding: 2rem;
 }
 
+.row.brand a {
+    text-decoration: none;
+    color: #EEE;
+    transition: color .3s ease-in-out;
+}
+
+.row.brand a:hover {
+    color: #1eaedb;
+}
+
 /* nav bar */
 .nav {
     margin: 0;
