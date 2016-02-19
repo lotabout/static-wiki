@@ -74,7 +74,6 @@ function intercept_content_link($element) {
         var link = $(this).attr('href');
         if (link.endsWith('.md')) {
             event.preventDefault();
-            console.log('processing', link);
             load_markdown(link, handle_markdown);
         }
     });
@@ -102,10 +101,9 @@ $.get('all.txt', function(data) {
 // add listener for search input box
 var $input = $('#search-input');
 var $searchResult = $('#search-result');
-var $searchResultWrapper = $('#search-result-wrapper')
+var $searchResultWrapper = $('#search-result-wrapper');
 
 function showSearchResult(data) {
-    console.log('what', data);
     if (data) {
         $searchResultWrapper.removeClass('hide');
         $searchResult.html(data);
@@ -119,7 +117,6 @@ function showSearchResult(data) {
 function search_and_show(e) {
     var ret = '<ul class=\"search-result-list\">';
     var keywords = e.target.value.trim().toLowerCase().split(/\s+/);
-    console.log('keywords', keywords);
 
     showSearchResult(false);
 
@@ -174,12 +171,19 @@ function search_and_show(e) {
     showSearchResult(ret);
 }
 
-//$input.focusout(function (e){
-    //console.log(e);
-    //showSearchResult(false);
-//});
+//=============================================================================
+// Searching input box and result
+
+$input.on('click', function (e){
+    $(this).select();
+});
 
 $input.on('input', function(e){
-    console.log('input');
     search_and_show(e);
+});
+
+$('html').click(function(e) {
+    if (!$.contains($searchResultWrapper.get(0), e.target)) {
+        $searchResultWrapper.addClass('hide');
+    }
 });
