@@ -7,15 +7,17 @@ var cached_files = {};
 
 // add simple router, which handles hash URL
 function load_url(url, callback) {
-    var match = url.match(/#(.*)$/);
+    var match = url.match(/#!(.*)$/);
     fragment = match ? match[1] : url;
 
-    history.pushState(null, null, '#' + fragment);
+    history.pushState(null, null, '#!' + fragment);
+    console.log('filename', fragment);
     callback(fragment);
 }
 
 function load_markdown(file) {
-    history.pushState(null, null, '#' + file);
+    console.log('load_markdown', file);
+    history.pushState(null, null, '#!' + file);
     handle_markdown(file);
 }
 
@@ -49,7 +51,7 @@ function handle_markdown(file) {
         // set the content
         $('#content').html(content);
 
-        //intercept_content_link($('content a'));
+        intercept_content_link($('#content a'));
         var toc = generate_toc($('#content'));
         $('#toc').html(toc);
     });
@@ -83,7 +85,7 @@ function fetch_file(file, callback) {
 // initial loading, redirect to #index.md
 var url = window.location.href;
 if (!url.endsWith('.md')) {
-    url += '#index.md';
+    url += '#!index.md';
 }
 
 load_url(url, handle_markdown);
@@ -92,7 +94,8 @@ function intercept_content_link($element) {
     // intercept all link clicks
     $element.click(function(event) {
         var link = $(this).attr('href');
-        if (link.endsWith('.md')) {
+        var match = link.match(/.*\.md$/);
+        if (match) {
             event.preventDefault();
             load_markdown(link, handle_markdown);
         }
