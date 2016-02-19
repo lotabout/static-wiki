@@ -2,33 +2,57 @@
     <head>
         <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://cdn.bootcss.com/marked/0.3.5/marked.min.js"></script>
-        <script src="http://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
-        <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
     </head>
     <body>
         <!--use bootstrap's grid system-->
-        <div class="row container">
-            <!--left bar-->
-            <div class="col-xs-12 col-sm-3 col-md-2">
-                <header id="header">
-                    <!--later to be moved to its own file.-->
-                    My Personal Wiki
-                    <input id="search-input" type="text">
-                    <div id="search-result"></div>
-                </header>
-            </div>
-
-            <div class="col-xs-12 col-sm-9 col-md-10">
-                <div id="content" class="">
-                    <!--for the main content-->
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">My Personal Wiki</a>
                 </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-right navbar-nav" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/">All Pages</a></li>
+                        <li><a href="/">Random Page</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-right dropdown" role="search">
+                        <input id="search-input" type="text" class="navbar-right form-control" placeholder="Search">
+                        <ul id="search-result" class="dropdown-menu"></ul>
+                    </form>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-md-9">
+                    <div id="content" class="">
+                        <!--for the main content-->
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-3 col-md-3 bs-docs-sidebar">
+                    <!--sidebar-->
+                </div>
+
             </div>
         </div>
 
-        <div id="log"></div>
-
         <footer id="footer"></footer>
+
+        <script src="https://cdn.bootcss.com/marked/0.3.5/marked.min.js"></script>
+        <script src="http://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+        <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <script src="main.js"></script>
     </body>
 </html>

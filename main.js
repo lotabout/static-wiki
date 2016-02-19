@@ -1,4 +1,4 @@
-var all_files = []
+var all_files = [];
 var file_contents = {};
 var cached_files = {};
 
@@ -16,7 +16,7 @@ function load_url(url, callback) {
 
 function load_markdown(file) {
     history.pushState(null, null, '#' + file);
-    handle_markdown(file)
+    handle_markdown(file);
 }
 
 window.onpopstate = function(e) {
@@ -31,7 +31,7 @@ function handle_markdown(file) {
 
         // set the content
         $('#content').html(content);
-        //intercept_content_link();
+        //intercept_content_link($('content a'));
     });
 }
 
@@ -68,9 +68,9 @@ if (!url.endsWith('.md')) {
 
 load_url(url, handle_markdown);
 
-function intercept_content_link() {
+function intercept_content_link($element) {
     // intercept all link clicks
-    $('#content a').click(function(event) {
+    $element.click(function(event) {
         var link = $(this).attr('href');
         if (link.endsWith('.md')) {
             event.preventDefault();
@@ -87,7 +87,6 @@ function intercept_content_link() {
 // load all files
 $.get('all.txt', function(data) {
     all_files = data.trim().split('\n');
-    $('#log').html(data);
 }).then(function() {
     // now we have the files, we want to retrieve all the contents of theme
     $(all_files).each(function(i, e) {
@@ -103,14 +102,34 @@ $.get('all.txt', function(data) {
 // add listener for search input box
 var $input = $('#search-input');
 var $searchResult = $('#search-result');
-$input.on('input', function(e){
-    var ret='<ul class=\"search-result-list\">';
-    var keywords = this.value.trim().toLowerCase().split(/\s+/);
 
-    $searchResult.html('');
+function showSearchResult(data) {
+    console.log('what', data);
+    if (data) {
+        //$searchResult.parent().addClass('open');
+        if (!$input.parent().hasClass('open')) {
+            $input.dropdown('toggle');
+        }
+        $searchResult.html(data);
+        intercept_content_link($('#search-result a'));
+    } else {
+        //$searchResult.parent().removeClass('open');
+        if ($input.parent().hasClass('open')) {
+            $input.dropdown('toggle');
+        }
+        $searchResult.html('');
+    }
+}
+
+function search_and_show(e) {
+    var ret = "";
+    var keywords = e.target.value.trim().toLowerCase().split(/\s+/);
+    console.log('keywords', keywords);
+
+    showSearchResult(false);
 
     // no keywords, skip
-    if (this.value.trim().length <= 0) {
+    if (e.target.value.trim().length <= 0) {
         return;
     }
 
@@ -136,7 +155,7 @@ $input.on('input', function(e){
             // show search content
             if (is_match) {
                 ret += '<li>';
-                ret += "<a href='#" + file + "' class='search-result-title'>" + file + "</a>";
+                ret += "<a href='" + file + "' class='search-result-title'>" + file + "</a>";
 
                 // cut 100 characters
                 var start = first_occur - 20;
@@ -155,6 +174,15 @@ $input.on('input', function(e){
             }
         }
     });
-    ret += "</ul>";
-    $searchResult.html(ret);
+    showSearchResult(ret);
+}
+
+//$input.focusout(function (e){
+    //console.log(e);
+    //showSearchResult(false);
+//});
+
+$input.on('input', function(e){
+    console.log('input');
+    search_and_show(e);
 });
