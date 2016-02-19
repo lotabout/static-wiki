@@ -34,7 +34,7 @@ ul.nav li {
     margin: 0;
 }
 
-ul.nav li a::before {
+ul.nav li::before {
     content: '';
     display: inline-block;
     height: 100%;
@@ -42,18 +42,17 @@ ul.nav li a::before {
 }
 
 /* nav link */
-ul.nav li a {
+ul.nav li{
     text-decoration: none;
     display: inline-block;
     height: 100%;
-}
-
-ul.nav li a {
+    color: #1EAEDB;
     display: inline-block;
     position: relative;
+    cursor: pointer;
 }
 
-ul.nav li a::before {
+ul.nav li::before {
     background: #5db1b4 none repeat scroll 0 0;
     bottom: 0;
     content: "";
@@ -65,7 +64,7 @@ ul.nav li a::before {
     width: 0;
 }
 
-ul.nav li a.active::before, ul.nav li a:hover::before {
+ul.nav li:hover::before {
     width: 100%;
 }
 
@@ -164,6 +163,7 @@ body {
 
 #main {
     flex: 1;
+    padding: 2em;
 }
 
 /*======================================================================
@@ -172,6 +172,14 @@ body {
 h1,h2,h3,h4,h5,h6 {
     padding-top: 1em;
     margin-top: -1em;
+}
+
+#main .container {
+    position: relative;
+}
+
+h2 {
+    border-bottom: 1px solid #222;
 }
 
 /*======================================================================

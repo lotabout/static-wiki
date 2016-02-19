@@ -16,7 +16,6 @@ function load_url(url, callback) {
 }
 
 function load_markdown(file) {
-    console.log('load_markdown', file);
     history.pushState(null, null, '#!' + file);
     handle_markdown(file);
 }
@@ -28,9 +27,10 @@ window.onpopstate = function(e) {
 
 // generate table of contents automatically, h2 > h3
 function generate_toc($content) {
-    var toc = "<nav class='toc'>" +
-        "<h2>Table Of Contents</h2>" +
+    var prefix = "<nav class='toc'>" +
+        "<h2>Contents</h2>" +
         "<ul>";
+    var toc = '';
 
     $content.find('h2,h3').each(function(i, e) {
         var cur = $(this);
@@ -39,21 +39,30 @@ function generate_toc($content) {
         toc += cur.text();
         toc += "</a></li>";
     });
-    toc += '</ul></nav>';
-    return toc;
+    if (toc === '') {
+        // no toc is generated
+        return '';
+    }
+    var postfix = '</ul></nav>';
+    return prefix + toc + postfix;
+}
+
+// handle the processed markdown data
+function handle_html_content(html) {
+    // set the content
+    $('#content').html(html);
+
+    intercept_content_link($('#content a'));
+    var toc = generate_toc($('#content'));
+    $('#toc').html(toc);
+
 }
 
 // load markdown file and intercept the link
 function handle_markdown(file) {
     fetch_file(file, function(data) {
         var content = marked(data);
-
-        // set the content
-        $('#content').html(content);
-
-        intercept_content_link($('#content a'));
-        var toc = generate_toc($('#content'));
-        $('#toc').html(toc);
+        handle_html_content(content);
     });
 }
 
@@ -209,4 +218,26 @@ $('html').click(function(e) {
     if (!$.contains($searchResultWrapper.get(0), e.target)) {
         $searchResultWrapper.addClass('hide');
     }
+});
+
+//=============================================================================
+// Page Navigation -- random/all
+
+function page_all_files() {
+    var ret = '<h1>All files</h1>';
+    ret += '<ul>';
+    ret += $.map(all_files, function(file) {
+        return "<li><a href='" + file + "'>" + file + '</a></li>';
+    }).join('');
+    ret += '</ul>';
+    return ret;
+}
+
+$('#all_pages').on('click', function(e) {
+    handle_html_content(page_all_files());
+});
+
+$('#random_pages').on('click', function(e){
+    var idx = Math.floor(Math.random() * all_files.length);
+    load_markdown(all_files[idx]);
 });
