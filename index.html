@@ -1,58 +1,80 @@
-<html>
-    <head>
-        <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-    </head>
-    <body>
-        <!--use bootstrap's grid system-->
-        <nav class="navbar navbar-default">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">My Personal Wiki</a>
-                </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse navbar-right navbar-nav" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/">All Pages</a></li>
-                        <li><a href="/">Random Page</a></li>
-                    </ul>
-                    <form class="navbar-form navbar-right dropdown" role="search">
-                        <input id="search-input" type="text" class="navbar-right form-control" placeholder="Search">
-                        <ul id="search-result" class="dropdown-menu"></ul>
-                    </form>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Your page title here :)</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-9 col-md-9">
-                    <div id="content" class="">
-                        <!--for the main content-->
-                    </div>
-                </div>
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-                <div class="col-xs-12 col-sm-3 col-md-3 bs-docs-sidebar">
-                    <!--sidebar-->
-                </div>
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 
-            </div>
-        </div>
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/main.css">
 
-        <footer id="footer"></footer>
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
 
-        <script src="https://cdn.bootcss.com/marked/0.3.5/marked.min.js"></script>
-        <script src="http://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
-        <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <script src="main.js"></script>
-    </body>
-</html>
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="row brand">
+      <div class="container">
+          Brand Header
+      </div>
+  </div>
+  <nav class="row navbar">
+      <div class="nav-control">
+          <div class="container">
+              <ul class="nav">
+                  <li><a href="/">All Pages</a></li>
+                  <li><a href="/">Random Page</a></li>
+              </ul>
+              <input id="search-input" type="text" placeholder="Search">
+          </div>
+      </div>
+  
+      <div id="search-result-wrapper" class="nav-result hide">
+          <div class="container">
+              <div id="search-result" class="search-result">
+                  <!--search result-->
+              </div>
+          </div>
+      </div>
+  </nav>
+
+  <div class="row">
+      <div class="container">
+          <div id="content" class="">
+              <!--for the main content-->
+          </div>
+      </div>
+  </div>
+
+  <footer id="footer row">
+      <div class="container">
+          Footer
+      </div>
+  </footer>
+
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://cdn.bootcss.com/marked/0.3.5/marked.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+<script src="main.js"></script>
+</body>

@@ -102,27 +102,22 @@ $.get('all.txt', function(data) {
 // add listener for search input box
 var $input = $('#search-input');
 var $searchResult = $('#search-result');
+var $searchResultWrapper = $('#search-result-wrapper')
 
 function showSearchResult(data) {
     console.log('what', data);
     if (data) {
-        //$searchResult.parent().addClass('open');
-        if (!$input.parent().hasClass('open')) {
-            $input.dropdown('toggle');
-        }
+        $searchResultWrapper.removeClass('hide');
         $searchResult.html(data);
         intercept_content_link($('#search-result a'));
     } else {
-        //$searchResult.parent().removeClass('open');
-        if ($input.parent().hasClass('open')) {
-            $input.dropdown('toggle');
-        }
+        $searchResultWrapper.addClass('hide');
         $searchResult.html('');
     }
 }
 
 function search_and_show(e) {
-    var ret = "";
+    var ret = '<ul class=\"search-result-list\">';
     var keywords = e.target.value.trim().toLowerCase().split(/\s+/);
     console.log('keywords', keywords);
 
@@ -174,6 +169,7 @@ function search_and_show(e) {
             }
         }
     });
+    ret += '</ul>';
     showSearchResult(ret);
 }
 
