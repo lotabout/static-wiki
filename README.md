@@ -1,7 +1,9 @@
+[Demo Page](http://lotabout.me/static-wiki/)
+
 # static-wiki
 
-Static wiki is a client side wiki for pure markdown.  However a simple file
-server is needed(Github Pages is enough) to serve files.
+Static wiki is a client side wiki for pure markdown. All you need is a simple file
+server(Github Pages is enough) to serve files and a browser to actually view.
 
 1. Now you can write your documents in markdown and never have to worry about it
    anymore.
@@ -45,3 +47,17 @@ README.md
 **Further Configuration**
 
 Well, it is written in HTML/CSS/Javascript, modify as you wish.
+
+## Use Github Pages for Hosting
+
+[Github Pages](https://pages.github.com/) provide hosts of static file for
+project wikis. Which in our case is the perfect tool for serving files. I
+won't go into the details of using Github pages, please read the corresponding
+documents.
+
+Here is my workflow.
+
+1. Publish my wiki(markdown files and static-wiki files) to branch `gh-pages`
+   to enable Github pages. Now our wiki is up.
+2. Whenever I want to edit something, I directly edit it on Github, Done.
+

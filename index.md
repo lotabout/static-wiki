@@ -1,9 +1,15 @@
 # Static Wiki
 
-Static wiki is a client side wiki for pure markdown. However a simple file
-server is needed(Github Pages is enough).
+Static wiki is a client side wiki for pure markdown. All you need is a simple file
+server(Github Pages is enough) to serve files and a browser to actually view.
 
-See [README](readme.md) for detail documentation.
+Static-wiki is hosted on [Github:
+static-wiki](https://github.com/lotabout/static-wiki) See [README](README.md)
+for detail documentation.
+
+Any suggestions and comments, use the [Issue Tracker](https://github.com/lotabout/static-wiki/issues)
+
+I know I am bad at naming...
 
 ## Code Sample
 
@@ -12,8 +18,3 @@ int main() {
     printf("hello world");
 }
 ```
-
-## Second HEader
-
-- [Knowledge](knowledge.md) -- About Knowledge
-- [Another](another.md) -- Another link
