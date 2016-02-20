@@ -1,20 +1,18 @@
 language: bash
-
 branches:
   only:
   - master
-
 script:
 - echo "Nothing to be done"
-
 after_success:
 - BRANCH='gh-pages'
-- GITHUB_REPO='https://${GH_TOKEN}@github.com/lotabout/static-wiki'
+- GITHUB_REPO="https://${GH_TOKEN}@github.com/lotabout/static-wiki"
 - git ls-files | grep '\.md$' > all.txt
 - git commit -a --amend --no-edit
 - CURRENT_BRANCH=$(git name-rev --name-only HEAD)
-- echo "git push $GITHUB_REPO $CURRENT_BRANCH:$BRANCH --force"
-
+- git config --global user.name "Mark Wallace"
+- git config --global user.email "lotabout@gmail.com"
+- git push $GITHUB_REPO $CURRENT_BRANCH:$BRANCH --force
 env:
   global:
-    secure: QAH+/EIDC/JgvfahG1FLoNertiaCeuRnqG7tVnZkkjUhdM3BNgSZWOvEtt+bFc+BQP+CMP6hupcnV4rMMmc3trUNxJ2Z2VCnQ8pv5N9LGJ9BVu/93532Ot5KKf8/WewoNFFA/ss6MP4UdHHic64EEifrVi4iOXM6XX3YCwxirBd0mJIp+2fJcusQK42AVMRNmGj/7+B0oNfxMJCOx6to58VZjgFXUWROVsRRQ3pKPVpux7eL7z2YSIXCAe1/ozCTs0Oq858nPtV0peku5DjVLDKeneQQTjm4GnnVmTcyotlixJX+276F0DC4d/fYGUSGy0uQ8LhAWSFhOWLLEAgl6X1Jyh1TGXAsmp33ftSCnZHVaPQVtHENcWLDSJuNuhYTeG3I/PCTEyS6YJ0NSPb3D8w2zOUYIFjrTD8QnPgJB6JNeuMcDDgn8M7/PtWPZZnwvDuzsRNw8pUrx9JI2R8q26QBHUtuGCSETueVAowAR53WKanRt6NMPU5PU5Ofm77+/67RR3z3EAwZS2fGceetIIrfHKlU1Mfroj+FijzjJcIGUriqpVbm+oZwGV3SCEqJLafYRkhKaEL8nFIM02ozohfSaMs50+kBXqG8wDwpmVq9UR6c/RPE9/oafAAkXO00+TT1xhhK45dJYMSYVyd7mnUuOKf0Vv4nzOrOmlbCPxE=
+    secure: FC7rQLb8lFbf3QRmJyeDAwgpRpFILmRbXLSUQvZ+wctOpPmN0UtkB41AdAddgDCH7T4I1H+XdtcBKnS0/BDGEQiOaIql4YkLW53FArmoN8LrohTqn2Xo84ysbSirrl6h6hbCPC3nNf1+rCcTAwJbopUogwG9Tfn9bHvgnBO7SewKmSkIPvJSz2um1CsCiHNLMenszMOhaEbrUK/mxsjdCVDBrPypOtbQ0IRmtWM9uGvwYf2aR4cbdJt3bmG6XFBgawWWSh5kAJ78UhgXLBhCUysn/l502SaX4aSfOxWbVii3PEZbZ8j9vvRDyxmh+kEFwGnCfj03lncekUV2Rwf2HBUZKpIc4ayRNcq3sCo0pCf68x1TIATwOTyMtMpHj+DjQ82/p821WovhK+BncHdTMn/RpkOSXM5dMAGTrUVCfn8oQ9gRgDY1O9WSuFUhb6vnxCkuca6AjpJO+RppP4V4xK0p+la8bstbbiW76k30efQfwhXeI9vy3WwRhbJ0va+dyNe7fIINGPC+iCve1l2dRGMCvQJxURncExNmsslUN1hTr+3cTBBP4AklWPRbsUWlaivTCvDBRUASkZ891x6y11h8//iROqqNRVcpgu1fmpXzfR3tCheLsRbvjO4gmBae1D0SiKwtWQQ+iMr2TQZOdqdlkxCSRUTnGZiKZVDt258=
