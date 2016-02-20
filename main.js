@@ -17,7 +17,7 @@ var current_file = '';
 // hash in format: #!file.md#anchor
 // return [file, anchor], if not found, return undefined
 function parse_hash(hash) {
-    var match = hash.match(/(?:#!([^#]+))?(?:#(.+))?$/);
+    var match = hash.match(/(?:#!([^#]+))?(?:#(.*))?$/);
     var filename = match ? match[1]: match;
     var anchor = match ? match[2]: match;
 
@@ -30,10 +30,20 @@ function load_url(url, state) {
     var filename = parse[0];
     var anchor = parse[1];
 
+    //console.log(url, state);
+
     // handle history
     var new_url = '#!' + (filename ? filename : current_file) + (anchor ? '#' + anchor : '');
-    history.pushState(null, null, new_url);
 
+    var changeState = $.proxy(history.pushState, history);
+    if (anchor || anchor === '') {
+        changeState = $.proxy(history.replaceState, history);
+    }
+    if (state && state.history) {
+        changeState = function () {};
+    }
+
+    changeState({history: true, anchor: anchor}, null, new_url);
 
     if (filename && filename != current_file) {
         current_file = filename;
@@ -52,7 +62,7 @@ function load_markdown(file) {
 }
 
 window.onpopstate = function(e) {
-    console.log('onpopstate');
+    //console.log('popstate', e, e.state);
     load_url(location.hash, e.state);
 };
 
