@@ -183,6 +183,12 @@ body {
     padding: 2em 0;
 }
 
+footer {
+    font-size: 80%;
+    padding: .5em 0;
+    text-align: right;
+}
+
 /*======================================================================
  * TOC */
 
