@@ -1,3 +1,11 @@
+//=============================================================================
+// configurations
+var file_all = 'all.txt';
+var file_index = 'index.md';
+
+//=============================================================================
+
+
 var all_files = [];
 var file_contents = {};
 var cached_files = {};
@@ -96,7 +104,7 @@ function fetch_file(file, callback) {
 // initial loading, redirect to #index.md
 var url = window.location.href;
 if (!url.endsWith('.md')) {
-    url += '#!index.md';
+    url += '#!' + file_index;
 }
 
 load_url(url, handle_markdown);
@@ -118,7 +126,7 @@ function intercept_content_link($element) {
 
 
 // load all files
-$.get('all.txt', function(data) {
+$.get(file_all, function(data) {
     all_files = data.trim().split('\n');
 }).then(function() {
     // now we have the files, we want to retrieve all the contents of theme
@@ -244,6 +252,11 @@ $('#all_pages').on('click', function(e) {
 });
 
 $('#random_pages').on('click', function(e){
+    if (all_files.length <= 0) {
+        var content = 'Please add `' + file_all + '` to your wiki for this function to work'; 
+        handle_html_content(content);
+        return;
+    }
     var idx = Math.floor(Math.random() * all_files.length);
     load_markdown(all_files[idx]);
 });
