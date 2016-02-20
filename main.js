@@ -6,31 +6,63 @@ var file_index = 'index.md';
 //=============================================================================
 
 
-var all_files = [];
-var file_contents = {};
-var cached_files = {};
+var all_files = []; // file list of all markdown
+var file_contents = {}; // markdown contents
+var cached_files = {}; // html contents
+var current_file = '';
 
 //=============================================================================
 // Routing
 
-// add simple router, which handles hash URL
-function load_url(url, callback) {
-    var match = url.match(/#!(.*)$/);
-    fragment = match ? match[1] : url;
+// hash in format: #!file.md#anchor
+// return [file, anchor], if not found, return undefined
+function parse_hash(hash) {
+    var match = hash.match(/(?:#!([^#]+))?(?:#(.+))?$/);
+    var filename = match ? match[1]: match;
+    var anchor = match ? match[2]: match;
 
-    history.pushState(null, null, '#!' + fragment);
-    callback(fragment);
+    return [filename, anchor];
+}
+
+// add simple router, which handles hash URL
+function load_url(url, state) {
+    var parse = parse_hash(url);
+    var filename = parse[0];
+    var anchor = parse[1];
+
+    // handle history
+    var new_url = '#!' + (filename ? filename : current_file) + (anchor ? '#' + anchor : '');
+    history.pushState(null, null, new_url);
+
+
+    if (filename && filename != current_file) {
+        current_file = filename;
+        handle_markdown(filename);
+    }
+
+    // anchor jump, '' or
+    var $anchor = anchor === '' ? document.body : document.getElementById(anchor);
+    if ($anchor) {
+        $anchor.scrollIntoView(true);
+    }
 }
 
 function load_markdown(file) {
-    history.pushState(null, null, '#!' + file);
-    handle_markdown(file);
+    load_url('#!'+file)
 }
 
 window.onpopstate = function(e) {
-    var hash = location.hash.slice(1);
-    handle_markdown(hash);
+    console.log('onpopstate');
+    load_url(location.hash, e.state);
 };
+
+$(document).ready(function() {
+    // redirect URL
+    load_url('#!'+file_index);
+});
+
+//=============================================================================
+// Routing
 
 // generate table of contents automatically, h2 > h3
 function generate_toc($content) {
@@ -101,14 +133,6 @@ function fetch_file(file, callback) {
     }
 }
 
-// initial loading, redirect to #index.md
-var url = window.location.href;
-if (!url.endsWith('.md')) {
-    url += '#!' + file_index;
-}
-
-load_url(url, handle_markdown);
-
 function intercept_content_link($element) {
     // intercept all link clicks
     $element.click(function(event) {
@@ -124,21 +148,23 @@ function intercept_content_link($element) {
 //=============================================================================
 // Searching
 
-
-// load all files
-$.get(file_all, function(data) {
-    all_files = data.trim().split('\n');
-}).then(function() {
-    // now we have the files, we want to retrieve all the contents of theme
-    $(all_files).each(function(i, e) {
-        // for each file, fetch its content
-        $.get(e, function(data) {
-            // save the data
-            file_contents[e] = data.trim();
+$(document).ready(function () {
+    // load all files
+    $.get(file_all, function(data) {
+        all_files = data.trim().split('\n');
+    }).then(function() {
+        // now we have the files, we want to retrieve all the contents of theme
+        $(all_files).each(function(i, e) {
+            if (!file_contents[e]) {
+                // for each file, fetch its content
+                $.get(e, function(data) {
+                    // save the data
+                    file_contents[e] = data.trim();
+                });
+            }
         });
     });
 });
-
 
 // add listener for search input box
 var $input = $('#search-input');
@@ -248,12 +274,13 @@ function page_all_files() {
 }
 
 $('#all_pages').on('click', function(e) {
+    current_file = file_all;
     handle_html_content(page_all_files());
 });
 
 $('#random_pages').on('click', function(e){
     if (all_files.length <= 0) {
-        var content = 'Please add `' + file_all + '` to your wiki for this function to work'; 
+        var content = 'Please add `' + file_all + '` to your wiki for this function to work';
         handle_html_content(content);
         return;
     }
