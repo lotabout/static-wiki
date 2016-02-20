@@ -33,14 +33,14 @@ function generate_toc($content) {
 
     $content.find('h2,h3').each(function(i, e) {
         var cur = $(this);
-        toc += "<li><a title='" + cur.prop('tagName');
-        toc += "' href='#" + cur.prop('id') + "'>";
+        toc += "<li class='" + cur.prop('tagName') + "'>";
+        toc += "<a href='#" + cur.prop('id') + "'>";
         toc += cur.text();
         toc += "</a></li>";
     });
     if (toc === '') {
         // no toc is generated
-        return '';
+        toc = 'No Contents Avaliable';
     }
     var postfix = '</ul></nav>';
     return prefix + toc + postfix;
@@ -216,9 +216,13 @@ $input.on('input', function(e){
     search_and_show(e);
 });
 
+var $tocWrapper = $('#toc-wrapper');
 $('html').click(function(e) {
     if (!$.contains($searchResultWrapper.get(0), e.target)) {
         $searchResultWrapper.addClass('hide');
+    }
+    if (!$.contains($tocWrapper.get(0), e.target)) {
+        $tocWrapper.addClass('hide');
     }
 });
 
@@ -243,3 +247,8 @@ $('#random_pages').on('click', function(e){
     var idx = Math.floor(Math.random() * all_files.length);
     load_markdown(all_files[idx]);
 });
+
+$('#toc-button').on('click', function(e) {
+    $tocWrapper.toggleClass('hide');
+    e.stopPropagation();
+})

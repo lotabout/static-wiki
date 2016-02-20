@@ -41,14 +41,24 @@
   <nav class="row navbar">
       <div class="nav-control">
           <div class="container">
-              <ul class="nav">
-                  <li id="all_pages">All Pages</li>
-                  <li id="random_pages">Random Page</li>
-              </ul>
-              <input id="search-input" type="text" placeholder="Search">
+              <div>
+                  <ul class="nav">
+                      <li><button class="nav-button" id="all_pages">All Pages</button></li>
+                      <li><button class="nav-button" id="random_pages">Random Page</button></li>
+                  </ul>
+                  <div id="nav-right">
+                      <input id="search-input" type="text" placeholder="Search">
+                      <button id="toc-button" class="nav-button">ToC</button>
+                  </div>
+              </div>
           </div>
       </div>
   
+      <div id="toc-wrapper" class="toc-panel hide">
+          <div id="toc">
+              <!--table of contents-->
+          </div>
+      </div>
       <div id="search-result-wrapper" class="nav-result hide">
           <div class="container">
               <div id="search-result" class="search-result">
@@ -61,9 +71,6 @@
   <div id="main" class="row">
       <div id="test" class="container">
           <div id="content" class="">
-              <!--for the main content-->
-          </div>
-          <div id="toc" class="">
               <!--for the main content-->
           </div>
       </div>
