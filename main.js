@@ -113,8 +113,7 @@ function handle_html_content(html) {
 // load markdown file and intercept the link
 function handle_markdown(file) {
     fetch_file(file, function(data) {
-        var content = marked(data);
-        handle_html_content(content);
+        handle_html_content(data);
     });
 }
 
