@@ -133,7 +133,7 @@ ul.nav li{
 }
 
 /* nav button */
-.nav-button {
+.nav-button, .nav-button:focus{
     margin: 0;
     color: #1EAEDB;
     padding: 0 1em;
