@@ -1,24 +1,97 @@
-html {
-    font-size: 14px;
+/* override skeleton defults
+ */
+body {
+    font-size: 2em;
 }
 
-.row.brand, footer {
+ul {
+    list-style: circle;
+}
+
+ol {
+    list-style: decimal;
+}
+
+/* Main content */
+#main {
+    background: #555;
+}
+
+#main .container {
+    position:  relative;
+    padding: 2.5em 0;
+    z-index: 1;
+    height: 100%;
+}
+
+#main .container::before {
+    content: '';
+    background: white;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -3rem;
+    right: -3rem;
+    z-index: -1;
+}
+
+#main h2::before {
+    content: '\00a0';
+    background: #444;
+    position: absolute;
+    left: -3rem;
+    right: -3rem;
+    z-index: -1;
+    box-shadow: 0 0 3px #444;
+}
+
+#main h2 {
+    color: #CBB7A7;
+    margin: -2rem 0 4rem 0;
+    padding: 4rem 0 0 0;
+    text-shadow: 1px 1px #333;
+}
+
+code {
+    font-size: 85%;
+    color: #555;
+}
+
+blockquote {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+    border-left: 5px solid #444;
+}
+
+::selection{
+    background: #555;
+    color: #EEE;
+}
+::-moz-selection {
+    background: #555;
+    color: #EEE;
+}
+
+
+/* Header */
+
+.brand, footer {
     background: #333;
     color: #EEE;
 }
 
-.row.brand {
+.brand {
     font-size: 3rem;
     padding: 2rem 0;
 }
 
-.row.brand a {
+.brand a {
     text-decoration: none;
     color: #EEE;
     transition: color .3s ease-in-out;
 }
 
-.row.brand a:hover {
+.brand a:hover {
     color: #1eaedb;
 }
 
@@ -52,53 +125,6 @@ ul.nav li{
     cursor: pointer;
 }
 
-/*ul.nav li::before {*/
-    /*background: #5db1b4 none repeat scroll 0 0;*/
-    /*bottom: 0;*/
-    /*content: "";*/
-    /*display: block;*/
-    /*height: 3px;*/
-    /*left: 0;*/
-    /*position: absolute;*/
-    /*transition: width 0.25s ease 0s;*/
-    /*width: 0;*/
-/*}*/
-
-/*ul.nav li:hover::before {*/
-    /*width: 100%;*/
-/*}*/
-
-/*ul.nav li {*/
-    /*padding: 0 .7em;*/
-    /*position: relative;*/
-/*}*/
-
-/*ul.nav li::after {*/
-    /*content: "";*/
-    /*display: block;*/
-    /*height: 8px;*/
-    /*opacity: 0.5;*/
-    /*position: absolute;*/
-    /*right: -4px;*/
-    /*top: 1rem;*/
-    /*width: 8px;*/
-    /*background: #AAA;*/
-/*}*/
-
-/*ul.nav li:last-child::after {*/
-    /*display: none;*/
-/*}*/
-
-/*ul.nav li:first-child {*/
-    /*padding-left: 0;*/
-/*}*/
-
-/*ul.nav li:last-child {*/
-    /*padding-right: 0;*/
-/*}*/
-
-
-
 #search-input {
     display: inline-block;
     margin: 0;
@@ -129,11 +155,11 @@ ul.nav li{
 .navbar {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 10;
 }
 
 /* nav button */
-.nav-button, .nav-button:focus{
+.nav-button, .nav-button:focus {
     margin: 0;
     color: #1EAEDB;
     padding: 0 1em;
@@ -180,7 +206,6 @@ body {
 
 #main {
     flex: 1;
-    padding: 2em 0;
 }
 
 footer {
@@ -191,19 +216,6 @@ footer {
 
 /*======================================================================
  * TOC */
-
-h1,h2,h3,h4,h5,h6 {
-    padding-top: 1em;
-    margin-top: -1em;
-}
-
-h2 {
-    border-bottom: 1px solid #222;
-}
-
-#main .container {
-    position: relative;
-}
 
 #toc li {
     margin: 0;
