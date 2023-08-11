@@ -150,6 +150,7 @@ function intercept_content_link($element) {
         if (match) {
             event.preventDefault();
             load_markdown(link, handle_markdown);
+            $searchResultWrapper.addClass('hide');
         }
     });
 }
